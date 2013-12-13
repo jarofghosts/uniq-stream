@@ -1,0 +1,28 @@
+{
+  "name": "uniq-stream",
+  "version": "0.0.0",
+  "description": "uniq",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jarofghosts/uniq-stream.git"
+  },
+  "keywords": [
+    "uniq",
+    "unique",
+    "stream",
+    "dedupe"
+  ],
+  "author": "jesse keane",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jarofghosts/uniq-stream/issues"
+  },
+  "homepage": "https://github.com/jarofghosts/uniq-stream",
+  "dependencies": {
+    "through": "~2.3.4"
+  }
+}
