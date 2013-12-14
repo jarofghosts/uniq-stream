@@ -7,8 +7,10 @@ var uniq = require('../'),
 
 rs._read = function() {
   rs.push('hey')
-  rs.push('woo')
   rs.push('hey')
+  rs.push('hey')
+  rs.push('hey')
+  rs.push('woo')
   rs.push('there')
   rs.push('wee')
   rs.push('hey')
@@ -20,7 +22,7 @@ ws._write = function(chunk, enc, next) {
   next()
 }
 ws.on('finish', function() {
-  assert.deepEqual(['hey', 'woo', 'there', 'wee'], data)
+  assert.deepEqual(['hey', 'woo', 'there', 'wee', 'hey'], data)
 })
 
-rs.pipe(uniq({ global: true })).pipe(ws)
+rs.pipe(uniq({ global: false })).pipe(ws)

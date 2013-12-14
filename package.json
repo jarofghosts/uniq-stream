@@ -4,7 +4,7 @@
   "description": "uniq",
   "main": "index.js",
   "scripts": {
-    "test": "node test/test.js"
+    "test": "node test/test.js && node test/test-classic.js && node test/test-case.js && node test/test-inverse.js && node test/test-skip.js"
   },
   "repository": {
     "type": "git",

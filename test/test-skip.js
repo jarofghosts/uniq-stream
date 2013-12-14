@@ -11,6 +11,10 @@ rs._read = function() {
   rs.push('hey')
   rs.push('there')
   rs.push('wee')
+  rs.push('see')
+  rs.push('pey')
+  rs.push('where')
+  rs.push('too')
   rs.push('hey')
   rs.push(null)
 }
@@ -23,4 +27,4 @@ ws.on('finish', function() {
   assert.deepEqual(['hey', 'woo', 'there', 'wee'], data)
 })
 
-rs.pipe(uniq({ global: true })).pipe(ws)
+rs.pipe(uniq({ global: true, skip: 1 })).pipe(ws)
