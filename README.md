@@ -1,11 +1,12 @@
 uniq-stream
 ====
+[![Build Status](https://travis-ci.org/jarofghosts/uniq-stream.png?branch=master)](https://travis-ci.org/jarofghosts/uniq-stream)
 
 a stream that acts like `uniq`
 
 ## usage
 
-data piped to it will be piped out de-duped line-wise.
+pipe it data and it pipes out de-duped (by line) data
 
 #### example
 
