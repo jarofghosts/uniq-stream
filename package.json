@@ -1,6 +1,6 @@
 {
   "name": "uniq-stream",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "uniq",
   "main": "index.js",
   "scripts": {
