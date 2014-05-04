@@ -4,7 +4,7 @@
   "description": "uniq",
   "main": "index.js",
   "scripts": {
-    "test": "node test/test.js && node test/test-classic.js && node test/test-case.js && node test/test-inverse.js && node test/test-skip.js"
+    "test": "node test/index.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,9 @@
   },
   "homepage": "https://github.com/jarofghosts/uniq-stream",
   "dependencies": {
-    "through": "~2.3.4"
+    "through": "^2.3.4"
+  },
+  "devDependencies": {
+    "tape": "^2.12.3"
   }
 }
