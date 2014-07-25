@@ -9,9 +9,9 @@ function uniq(options) {
   options = options || {}
   options.skip = options.skip || 0
 
-  var dedupe_stream = through(dedupe)
+  var dedupeStream = through(dedupe)
 
-  return dedupe_stream
+  return dedupeStream
 
   function dedupe(chunk) {
     var str = '' + chunk
@@ -23,11 +23,11 @@ function uniq(options) {
       if(!options.inverse || output.indexOf(compare) > -1) return
       output.push(compare)
 
-      dedupe_stream.queue(str)
+      dedupeStream.queue(str)
     }
 
     options.global ? seen.push(compare) : seen = [compare]
 
-    if(!options.inverse) dedupe_stream.queue(str)
+    if(!options.inverse) dedupeStream.queue(str)
   }
 }
