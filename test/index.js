@@ -5,149 +5,116 @@ var test = require('tape')
 var uniq = require('../')
 
 test('opts.global dedupes globally', function(t) {
-  var rs = stream.Readable()
-    , ws = stream.Writable()
+  var uniqStream = uniq({global: true})
     , data = []
 
   t.plan(1)
 
-  rs._read = function() {
-    rs.push('hey')
-    rs.push('woo')
-    rs.push('hey')
-    rs.push('there')
-    rs.push('wee')
-    rs.push('hey')
-    rs.push(null)
-  }
+  uniqStream.on('data', data.push.bind(data))
 
-  ws._write = function(chunk, enc, next) {
-    data.push('' + chunk)
-    next()
-  }
-
-  ws.on('finish', function() {
+  uniqStream.on('end', function() {
     t.deepEqual(['hey', 'woo', 'there', 'wee'], data)
   })
 
-  rs.pipe(uniq({global: true})).pipe(ws)
+  uniqStream.write('hey')
+  uniqStream.write('woo')
+  uniqStream.write('hey')
+  uniqStream.write('there')
+  uniqStream.write('wee')
+  uniqStream.write('hey')
+  uniqStream.end()
 })
 
 test('opts.ignoreCase ignores case', function(t) {
-  var rs = stream.Readable()
-    , ws = stream.Writable()
+  var uniqStream = uniq({ignoreCase: true})
     , data = []
 
   t.plan(1)
 
-  rs._read = function() {
-    rs.push('hey')
-    rs.push('HEY')
-    rs.push('woo')
-    rs.push('there')
-    rs.push('THeRe')
-    rs.push('WEE')
-    rs.push('wee')
-    rs.push(null)
-  }
+  uniqStream.on('data', data.push.bind(data))
 
-  ws._write = function(chunk, enc, next) {
-    data.push('' + chunk)
-    next()
-  }
-
-  ws.on('finish', function() {
+  uniqStream.on('end', function() {
     t.deepEqual(['hey', 'woo', 'there', 'WEE'], data)
   })
 
-  rs.pipe(uniq({ignoreCase: true})).pipe(ws)
+  uniqStream.write('hey')
+  uniqStream.write('HEY')
+  uniqStream.write('woo')
+  uniqStream.write('there')
+  uniqStream.write('THeRe')
+  uniqStream.write('WEE')
+  uniqStream.write('wee')
+
+  uniqStream.end()
 })
 
 test('defaults dedupe linewise', function(t) {
-  var rs = stream.Readable()
-    , ws = stream.Writable()
+  var uniqStream = uniq()
     , data = []
 
   t.plan(1)
 
-  rs._read = function() {
-    rs.push('hey')
-    rs.push('hey')
-    rs.push('hey')
-    rs.push('hey')
-    rs.push('woo')
-    rs.push('there')
-    rs.push('wee')
-    rs.push('hey')
-    rs.push(null)
-  }
+  uniqStream.on('data', data.push.bind(data))
 
-  ws._write = function(chunk, enc, next) {
-    data.push('' + chunk)
-    next()
-  }
-  ws.on('finish', function() {
+  uniqStream.on('end', function() {
     t.deepEqual(['hey', 'woo', 'there', 'wee', 'hey'], data)
   })
 
-  rs.pipe(uniq()).pipe(ws)
+  uniqStream.write('hey')
+  uniqStream.write('hey')
+  uniqStream.write('hey')
+  uniqStream.write('hey')
+  uniqStream.write('woo')
+  uniqStream.write('there')
+  uniqStream.write('wee')
+  uniqStream.write('hey')
+
+  uniqStream.end()
 })
 
 test('opts.inverse only streams duplicates', function(t) {
-  var rs = stream.Readable()
-    , ws = stream.Writable()
+  var uniqStream = uniq({inverse: true})
     , data = []
 
   t.plan(1)
 
-  rs._read = function() {
-    rs.push('hey')
-    rs.push('hey')
-    rs.push('there')
-    rs.push('wee')
-    rs.push('woo')
-    rs.push('woo')
-    rs.push(null)
-  }
+  uniqStream.on('data', data.push.bind(data))
 
-  ws._write = function(chunk, enc, next) {
-    data.push('' + chunk)
-    next()
-  }
-  ws.on('finish', function() {
+  uniqStream.on('end', function() {
     t.deepEqual(['hey', 'woo'], data)
   })
 
-  rs.pipe(uniq({inverse: true})).pipe(ws)
+  uniqStream.write('hey')
+  uniqStream.write('hey')
+  uniqStream.write('there')
+  uniqStream.write('wee')
+  uniqStream.write('woo')
+  uniqStream.write('woo')
+
+  uniqStream.end()
 })
 
 test('opts.skip skips characters for matching', function(t) {
-  var rs = stream.Readable()
-    , ws = stream.Writable()
+  var uniqStream = uniq({skip: 1})
     , data = []
 
   t.plan(1)
 
-  rs._read = function() {
-    rs.push('hey')
-    rs.push('hey')
-    rs.push('pey')
-    rs.push('woo')
-    rs.push('too')
-    rs.push('there')
-    rs.push('where')
-    rs.push('wee')
-    rs.push('see')
-    rs.push(null)
-  }
+  uniqStream.on('data', data.push.bind(data))
 
-  ws._write = function(chunk, enc, next) {
-    data.push(chunk.toString())
-    next()
-  }
-  ws.on('finish', function() {
+  uniqStream.on('end', function() {
     t.deepEqual(['hey', 'woo', 'there', 'wee'], data)
   })
 
-  rs.pipe(uniq({skip: 1})).pipe(ws)
+  uniqStream.write('hey')
+  uniqStream.write('hey')
+  uniqStream.write('pey')
+  uniqStream.write('woo')
+  uniqStream.write('too')
+  uniqStream.write('there')
+  uniqStream.write('where')
+  uniqStream.write('wee')
+  uniqStream.write('see')
+
+  uniqStream.end()
 })
