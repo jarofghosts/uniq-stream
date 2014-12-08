@@ -4,14 +4,20 @@ uniq-stream
 
 a stream that acts like `uniq`
 
-## usage
+## Installation
+
+```
+npm install uniq-stream
+```
+
+## Usage
 
 pipe it data and it pipes out de-duped (by line) data
 
-#### example
+#### Example
 
 ```js
-var uniq = require('uniq'),
+var uniq = require('uniq-stream'),
     split = require('split'),
     fs = require('fs')
 
@@ -21,7 +27,7 @@ fs.createReadStream('dupe-ridden-file.txt')
   .pipe(fs.createWriteStream('clean-file.txt'))
 ```
 
-## options
+## Options
 
 uniq-stream accepts an options object as a first parameter, the acceptable
 options are outlined below along with their defaults.
@@ -35,6 +41,6 @@ options are outlined below along with their defaults.
 }
 ```
 
-## license
+## License
 
 MIT
