@@ -17,9 +17,9 @@ pipe it data and it pipes out de-duped (by line) data
 #### Example
 
 ```js
-var uniq = require('uniq-stream'),
-    split = require('split'),
-    fs = require('fs')
+var uniq = require('uniq-stream')
+  , split = require('split')
+  , fs = require('fs')
 
 fs.createReadStream('dupe-ridden-file.txt')
   .pipe(split())
@@ -34,10 +34,10 @@ options are outlined below along with their defaults.
 
 ```js
 {
-  global: false, // de-dupe data globally rather than line-wise
-  ignoreCase: false, // case insensitive comparison
-  skip: 0, // ignore first (value) characters of input string for comparison
-  inverse: false // only emit duplicated lines
+    global: false // de-dupe data globally rather than line-wise
+  , ignoreCase: false // case insensitive comparison
+  , skip: 0 // ignore first (value) characters of input string for comparison
+  , inverse: false // only emit duplicated lines
 }
 ```
 
