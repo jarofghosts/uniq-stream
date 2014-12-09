@@ -1,6 +1,8 @@
 uniq-stream
-====
-[![Build Status](https://travis-ci.org/jarofghosts/uniq-stream.png?branch=master)](https://travis-ci.org/jarofghosts/uniq-stream)
+===========
+
+[![Build Status](http://img.shields.io/travis/jarofghosts/uniq-stream.svg?style=flat)](https://travis-ci.org/jarofghosts/uniq-stream)
+[![npm install](http://img.shields.io/npm/dm/uniq-stream.svg?style=flat)](https://www.npmjs.org/package/uniq-stream)
 
 a stream that acts like `uniq`
 
