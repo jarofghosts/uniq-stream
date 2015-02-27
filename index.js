@@ -14,11 +14,12 @@ function uniq(options) {
   return dedupeStream
 
   function dedupe(chunk) {
-    var str = '' + chunk
+    var str = chunk.toString()
 
     var compare = str.slice(options.skip)
 
     if(options.ignoreCase) compare = compare.toLowerCase()
+
     if(seen.indexOf(compare) > -1) {
       if(!options.inverse || output.indexOf(compare) > -1) return
       output.push(compare)
