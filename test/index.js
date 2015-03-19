@@ -11,10 +11,9 @@ test('opts.global dedupes globally', function(t) {
   uniqStream.on('data', data.push.bind(data))
 
   uniqStream.on('end', function() {
-    t.deepEqual(['hey', 'woo', 'there', 'wee'].map(Buffer), data)
+    t.deepEqual(['woo', 'hey', 'there', 'wee'].map(Buffer), data)
   })
 
-  uniqStream.write('hey')
   uniqStream.write('woo')
   uniqStream.write('hey')
   uniqStream.write('there')
