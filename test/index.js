@@ -1,5 +1,3 @@
-var stream = require('stream')
-
 var test = require('tape')
 
 var uniq = require('../')
@@ -22,6 +20,7 @@ test('opts.global dedupes globally', function(t) {
   uniqStream.write('there')
   uniqStream.write('wee')
   uniqStream.write('hey')
+
   uniqStream.end()
 })
 
