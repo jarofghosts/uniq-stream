@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/jarofghosts/uniq-stream",
   "dependencies": {
-    "through": "^2.3.4"
+    "through2": "^0.6.3"
   },
   "devDependencies": {
     "covert": "^1.0.1",

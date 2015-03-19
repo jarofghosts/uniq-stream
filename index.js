@@ -1,4 +1,4 @@
-var through = require('through')
+var through = require('through2')
 
 module.exports = uniq
 
@@ -9,26 +9,35 @@ function uniq(options) {
   options = options || {}
   options.skip = options.skip || 0
 
-  var dedupeStream = through(dedupe)
+  return through(dedupe)
 
-  return dedupeStream
+  function dedupe(chunk, enc, next) {
+    var str = chunk.toString().slice(options.skip)
 
-  function dedupe(chunk) {
-    var str = chunk.toString()
-
-    var compare = str.slice(options.skip)
-
-    if(options.ignoreCase) compare = compare.toLowerCase()
-
-    if(seen.indexOf(compare) > -1) {
-      if(!options.inverse || output.indexOf(compare) > -1) return
-      output.push(compare)
-
-      dedupeStream.queue(str)
+    if(options.ignoreCase) {
+      str = str.toLowerCase()
     }
 
-    options.global ? seen.push(compare) : seen = [compare]
+    if(seen.indexOf(str) > -1) {
+      if(!options.inverse || output.indexOf(str) > -1) {
+        return next()
+      }
 
-    if(!options.inverse) dedupeStream.queue(str)
+      output.push(str)
+
+      this.push(chunk)
+    }
+
+    if(options.global) {
+      seen.push(str)
+    } else {
+      seen = [str]
+    }
+
+    if(!options.inverse) {
+      this.push(chunk)
+    }
+
+    next()
   }
 }

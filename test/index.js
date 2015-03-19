@@ -13,7 +13,7 @@ test('opts.global dedupes globally', function(t) {
   uniqStream.on('data', data.push.bind(data))
 
   uniqStream.on('end', function() {
-    t.deepEqual(['hey', 'woo', 'there', 'wee'], data)
+    t.deepEqual(['hey', 'woo', 'there', 'wee'].map(Buffer), data)
   })
 
   uniqStream.write('hey')
@@ -34,7 +34,7 @@ test('opts.ignoreCase ignores case', function(t) {
   uniqStream.on('data', data.push.bind(data))
 
   uniqStream.on('end', function() {
-    t.deepEqual(['hey', 'woo', 'there', 'WEE'], data)
+    t.deepEqual(['hey', 'woo', 'there', 'WEE'].map(Buffer), data)
   })
 
   uniqStream.write('hey')
@@ -57,7 +57,7 @@ test('defaults dedupe linewise', function(t) {
   uniqStream.on('data', data.push.bind(data))
 
   uniqStream.on('end', function() {
-    t.deepEqual(['hey', 'woo', 'there', 'wee', 'hey'], data)
+    t.deepEqual(['hey', 'woo', 'there', 'wee', 'hey'].map(Buffer), data)
   })
 
   uniqStream.write('hey')
@@ -81,7 +81,7 @@ test('opts.inverse only streams duplicates', function(t) {
   uniqStream.on('data', data.push.bind(data))
 
   uniqStream.on('end', function() {
-    t.deepEqual(['hey', 'woo'], data)
+    t.deepEqual(['hey', 'woo'].map(Buffer), data)
   })
 
   uniqStream.write('hey')
@@ -103,7 +103,7 @@ test('opts.skip skips characters for matching', function(t) {
   uniqStream.on('data', data.push.bind(data))
 
   uniqStream.on('end', function() {
-    t.deepEqual(['hey', 'woo', 'there', 'wee'], data)
+    t.deepEqual(['hey', 'woo', 'there', 'wee'].map(Buffer), data)
   })
 
   uniqStream.write('hey')
