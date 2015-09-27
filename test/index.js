@@ -2,15 +2,15 @@ var test = require('tape')
 
 var uniq = require('../')
 
-test('opts.global dedupes globally', function(t) {
+test('opts.global dedupes globally', function (t) {
   var uniqStream = uniq({global: true})
-    , data = []
+  var data = []
 
   t.plan(1)
 
   uniqStream.on('data', data.push.bind(data))
 
-  uniqStream.on('end', function() {
+  uniqStream.on('end', function () {
     t.deepEqual(['woo', 'hey', 'there', 'wee'].map(toBuffer), data)
     t.end()
   })
@@ -24,15 +24,15 @@ test('opts.global dedupes globally', function(t) {
   uniqStream.end()
 })
 
-test('opts.ignoreCase ignores case', function(t) {
+test('opts.ignoreCase ignores case', function (t) {
   var uniqStream = uniq({ignoreCase: true})
-    , data = []
+  var data = []
 
   t.plan(1)
 
   uniqStream.on('data', data.push.bind(data))
 
-  uniqStream.on('end', function() {
+  uniqStream.on('end', function () {
     t.deepEqual(['hey', 'woo', 'there', 'WEE'].map(toBuffer), data)
     t.end()
   })
@@ -48,15 +48,15 @@ test('opts.ignoreCase ignores case', function(t) {
   uniqStream.end()
 })
 
-test('defaults dedupe linewise', function(t) {
+test('defaults dedupe linewise', function (t) {
   var uniqStream = uniq()
-    , data = []
+  var data = []
 
   t.plan(1)
 
   uniqStream.on('data', data.push.bind(data))
 
-  uniqStream.on('end', function() {
+  uniqStream.on('end', function () {
     t.deepEqual(['hey', 'woo', 'there', 'wee', 'hey'].map(toBuffer), data)
     t.end()
   })
@@ -73,15 +73,15 @@ test('defaults dedupe linewise', function(t) {
   uniqStream.end()
 })
 
-test('opts.inverse only streams duplicates', function(t) {
+test('opts.inverse only streams duplicates', function (t) {
   var uniqStream = uniq({inverse: true})
-    , data = []
+  var data = []
 
   t.plan(1)
 
   uniqStream.on('data', data.push.bind(data))
 
-  uniqStream.on('end', function() {
+  uniqStream.on('end', function () {
     t.deepEqual(['hey', 'woo'].map(toBuffer), data)
     t.end()
   })
@@ -96,15 +96,15 @@ test('opts.inverse only streams duplicates', function(t) {
   uniqStream.end()
 })
 
-test('opts.skip skips characters for matching', function(t) {
+test('opts.skip skips characters for matching', function (t) {
   var uniqStream = uniq({skip: 1})
-    , data = []
+  var data = []
 
   t.plan(1)
 
   uniqStream.on('data', data.push.bind(data))
 
-  uniqStream.on('end', function() {
+  uniqStream.on('end', function () {
     t.deepEqual(['hey', 'woo', 'there', 'wee'].map(toBuffer), data)
     t.end()
   })
@@ -122,6 +122,6 @@ test('opts.skip skips characters for matching', function(t) {
   uniqStream.end()
 })
 
-function toBuffer(str) {
+function toBuffer (str) {
   return new Buffer(str)
 }
